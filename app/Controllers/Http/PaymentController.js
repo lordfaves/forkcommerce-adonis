@@ -48,15 +48,11 @@ class PaymentController {
 
     const reference = await Payment.query().where('reference', request.input('reference')).first()
     
-    if(!reference){
-      return response.status(404).json({success:false, data:{message:"Reference has already been used."}})
+    if(reference){
+      return response.status(404).json({success:false, data:{message:"Transaction has been approved before."}})
     }
     
     const subscription = await Subscription.query().where({id:request.input('subscription_id'), user_id:auth.user.id}).first()
-
-    if(subscription.status == 'paid'){
-      return response.status(405).json({success:false, data:{message:"Subscription already paid for."}})
-    }
 
     if(subscription.status == 'paid'){
       return response.status(405).json({success:false, data:{message:"Subscription already paid for."}})
@@ -84,12 +80,22 @@ class PaymentController {
       status: 'success',
     }
 
-    const admin = User.find(1)
+    const admin = await User.find(1)
     const user = auth.user
-    // return admin
-    // payment = await Payment.create(payment)
+
+    payment = await Payment.create(payment)
 
     Event.fire('paystack-payment::received', payment, user, admin)
+
+    subscription.status = 'paid'
+    await subscription.save()
+
+    const store = await Store.find(subscription.store_id)
+    store.status = 'paid'
+
+    await store.save()
+
+    return response.status(200).json({success:true, data:{message:'Payment successful, your app will be ready in minutes...'}})
   }
 
   async bankTransferPayment({request, response, auth})
