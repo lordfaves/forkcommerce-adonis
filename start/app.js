@@ -21,6 +21,7 @@ const providers = [
   '@adonisjs/auth/providers/AuthProvider',
   '@adonisjs/validator/providers/ValidatorProvider',
   '@radmen/adonis-lucid-soft-deletes/providers/SoftDeletesProvider',
+  'adonis-notifications/providers/NotificationsProvider',
   '@adonisjs/mail/providers/MailProvider',
 ]
 
@@ -34,7 +35,8 @@ const providers = [
 |
 */
 const aceProviders = [
-  '@adonisjs/lucid/providers/MigrationsProvider'
+  '@adonisjs/lucid/providers/MigrationsProvider',
+  'adonis-notifications/providers/CommandsProvider',
 ]
 
 /*

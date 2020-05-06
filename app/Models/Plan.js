@@ -13,6 +13,14 @@ class Plan extends Model {
     subscriptions(){
         return this.hasMany('App/Models/Subscription')
     }
+      
+    coupons(){
+        return this.hasMany('App/Models/Coupon')
+    }
+
+    features(){
+        return this.belongsToMany('App/Models/Feature')
+    }
 }
 
 module.exports = Plan

@@ -32,6 +32,7 @@
     "@adonisjs/websocket": "^1.0.12",
     "@radmen/adonis-lucid-soft-deletes": "^0.2.0",
     "adonis-acl": "^1.1.1",
+    "adonis-notifications": "^1.1.2",
     "google-auth-library": "^6.0.0",
     "mail": "^0.2.3",
     "moment": "^2.25.3",

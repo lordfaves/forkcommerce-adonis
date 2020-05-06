@@ -18,9 +18,23 @@ class Subscription extends Model {
         return this.belongsTo('App/Models/Store')
     }
 
-    code(){
-        return 123456
+    
+    payments(){
+        return this.hasMany('App/Models/Payment')
     }
+
+    coupon(){
+        return this.belongsTo('App/Models/Coupon')
+    }
+
+    store(){
+        return this.belongsTo('App/Models/Store')
+    }
+
+    user(){
+        return this.belongsTo('App/Models/User')
+    }
+
 }
 
 module.exports = Subscription
